@@ -11,8 +11,8 @@
 <h1></h1>
 <form method="post">
 <div class="mb-3">
-              <label for="celcius" class="form-label">Digite uma temperatura em celcius:</label>
-              <input type="number" id="celcius" name="celcius" class="form-control" required="">
+              <label for="fahrenheit" class="form-label">Digite uma temperatura em fahrenheit:</label>
+              <input type="number" id="fahrenheit" name="fahrenheit" class="form-control" required="">
             </div>
 <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
@@ -20,12 +20,12 @@
 <?php
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $celcius = $_POST["celcius"];
+        $fahrenheit = $_POST["fahrenheit"];
         $conversor = $_POST["conversor"];
 
-        $conversor = ($celcius * 1.8) + 32;
+        $conversor = ($fahrenheit - 32) / 1.8;
         
-        echo "<p> $celcius celcius em Fahenhait é: $conversor</p>";
+        echo "<p> $fahrenheit fahrenheit em celsius é: $conversor</p>";
     }
 
 ?>
