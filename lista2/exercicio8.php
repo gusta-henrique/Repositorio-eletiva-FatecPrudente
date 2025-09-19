@@ -16,14 +16,11 @@ include("cabecalho.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $numero = $_POST['numero'];
 
-    $contador = 0;
+  do {
+        echo "$numero\n";
+        $numero--;
+    } while ($numero >= 1);
 
-    do {
-        if($numero > 1){
-            echo "<p>Contagem regressiva: </p>";
-            break;
-        }
-    }
 include("rodape.php");
 }
 
