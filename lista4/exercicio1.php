@@ -23,11 +23,39 @@
 </div>
 
  <?php
- 
-    $contatos = [
-        $nome => $telefone
-    ];
+$contatos = []; // cria o array (mapa) para guardar os contatos
 
- ?>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  for ($i = 0; $i < 5; $i++) {
+        $nome = trim($_POST["nome"][$i]);      
+        $telefone = trim($_POST["telefone"][$i]); 
+
+        // se o nome já existe no array, pula
+        if (array_key_exists($nome, $contatos)) {
+            continue;
+        }
+
+        if (in_array($telefone, $contatos)) {
+            continue;
+        }
+
+        if ($nome && $telefone) {
+            $contatos[$nome] = $telefone;
+        }
+    }
+
+    ksort($contatos);
+
+    echo "<h3>Lista de Contatos</h3>";
+    foreach ($contatos as $nome => $telefone) {
+        echo "$nome - $telefone<br>";
+    }
+}
+?>
+
+</body>
+</html>
+
 </body>
 </html>
