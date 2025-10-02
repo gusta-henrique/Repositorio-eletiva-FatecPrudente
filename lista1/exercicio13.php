@@ -1,3 +1,6 @@
+<!-- Crie um formulário que permita ao usuário inserir um valor em metros. O script PHP deve -->
+<!-- converter esse valor para centímetros e exibir o resultado -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +11,7 @@
 </head>
 <body> 
 <div class="container">
-<h1></h1>
+<h1></h1> 
 <form method="post">
 <div class="mb-3">
               <label for="base" class="form-label">informe a quantidade de metros: </label>

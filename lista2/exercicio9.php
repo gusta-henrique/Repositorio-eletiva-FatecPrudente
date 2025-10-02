@@ -1,9 +1,12 @@
+<!-- Crie um formulário para que o usuário informe um número. Use um loop -->
+<!-- for para calcular o fatorial desse número e exibir o resultado. -->
+
 <?php
 
 include("cabecalho.php");
 ?>
 
-<form method="post">
+<form method="post"> 
     <div class="mb-3">
         <label for="numero" class="form-label">Informe um número:</label>
         <input type="number" id="numero" name="numero" class="form-control" required="">
