@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class CategoriaController extends Controller
 {
@@ -31,9 +33,9 @@ class CategoriaController extends Controller
     {
         try{
             Categoria::create($request->all());
-        }catch(exception $e){
-            Log::error('Erro ao inserir categoria: '. $e->getMessage, [
-                'stack' => $e->getStackTraceAsString()
+        } catch(Exception $e){
+            Log::error('Erro ao inserir categoria: '. $e->getMessage(), [
+                'stack' => $e->getTraceAsString()
             ]);
         }
         return redirect()->route('categorias.index');
@@ -45,23 +47,32 @@ class CategoriaController extends Controller
     public function show($id)
     {
         $categoria = Categoria::findOrFail($id);
-        return view("categoria.show", compact($categoria));
+        return view("categoria.show", compact('categoria'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.edit', compact('categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        try{
+            $categoria = Categoria::findOrFail($id);
+            $categoria->update($request->all());
+        } catch(Exception $e){
+            Log::error('Erro ao alterar categoria: '. $e->getMessage(), [
+                'stack' => $e->getTraceAsString()
+            ]);
+        }
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -72,12 +83,11 @@ class CategoriaController extends Controller
         try{
             $categoria = Categoria::findOrFail($id);
             $categoria->delete();
-        }catch(exception $e){
-            Log::error('Erro ao excluir categoria: '. $e->getMessage, [
-                'stack' => $e->getStackTraceAsString()
+        } catch(Exception $e){
+            Log::error('Erro ao excluir categoria: '. $e->getMessage(), [
+                'stack' => $e->getTraceAsString()
             ]);
         }
         return redirect()->route('categorias.index');
     }
-
 }
