@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    // Removemos o 'HasApiTokens' daqui para sumir o erro
     use HasFactory, Notifiable;
 
     /**
-     * Campos que podem ser preenchidos em massa (Mass Assignment)
+     * Campos que podem ser preenchidos (Mass Assignment)
      */
     protected $fillable = [
         'name',
@@ -20,7 +21,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Campos que devem ser escondidos em arrays (como JSON)
+     * Campos escondidos em consultas
      */
     protected $hidden = [
         'password',
@@ -28,13 +29,17 @@ class User extends Authenticatable
     ];
 
     /**
-     * Conversão de tipos (Casts)
+     * Conversão de tipos
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * RELACIONAMENTO: Um usuário tem um carrinho aberto
+     */
+    public function carrinho()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed', // Isso garante que a senha seja tratada como hash
-        ];
+        return $this->hasOne(Carrinho::class, 'user_id')->where('status', 'aberto');
     }
 }
