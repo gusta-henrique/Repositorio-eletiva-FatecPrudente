@@ -1,28 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\LojaController;
-use App\Http\Controllers\CarrinhoController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdutoController;
+
+// --- ÁREA DO CLIENTE ---
+// Página Inicial e Catálogo
+Route::get('/', [ProdutoController::class, 'catalogo'])->name('home');
+Route::get('/catalogo', [ProdutoController::class, 'catalogo'])->name('catalogo');
+
+// Carrinho de Compras
+Route::get('/carrinho', [ProdutoController::class, 'exibirCarrinho'])->name('carrinho.exibir');
+Route::post('/carrinho/adicionar/{id}', [ProdutoController::class, 'adicionarCarrinho'])->name('carrinho.adicionar');
+Route::post('/carrinho/atualizar/{id}', [ProdutoController::class, 'atualizarCarrinho'])->name('carrinho.update');
+Route::post('/carrinho/limpar', [ProdutoController::class, 'limparCarrinho'])->name('carrinho.limpar');
 
 
-
-
-// 1. Rota Inicial (Raiz)
-// Faz o localhost:8000 abrir direto na sua lista de produtos
-Route::get('/', [ProdutoController::class, 'index']);
-
-// 2. Rota de Boas-Vindas (Opcional)
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::resource('categorias', CategoriaController::class);
+// --- ÁREA ADMINISTRATIVA ---
+// Gerenciar Produtos (É aqui que você cadastra os itens da Fatec!)
 Route::resource('produtos', ProdutoController::class);
+
+// Gerenciar Dados da Loja (Opcional, se você tiver uma tabela de lojas)
 Route::resource('lojas', LojaController::class);
-Route::get('/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
-Route::get('/carrinho/add/{id}', [CarrinhoController::class, 'adicionar'])->name('carrinho.add');
-Route::patch('/carrinho/update', [CarrinhoController::class, 'atualizar'])->name('carrinho.update');
-Route::delete('/carrinho/remove', [CarrinhoController::class, 'remover'])->name('carrinho.remove');
