@@ -20,16 +20,14 @@ class CarrinhoController extends Controller
         $produto = Produto::findOrFail($id);
         $carrinho = session()->get('carrinho', []);
 
-        // Se o produto já está no carrinho, aumenta a quantidade
         if(isset($carrinho[$id])) {
             $carrinho[$id]['quantidade']++;
         } else {
-            // Se não está, adiciona um novo item no array
             $carrinho[$id] = [
                 "nome" => $produto->nome,
                 "quantidade" => 1,
                 "preco" => $produto->preco,
-                "foto" => $produto->foto // Se tiver campo de imagem
+                "foto" => $produto->foto
             ];
         }
 

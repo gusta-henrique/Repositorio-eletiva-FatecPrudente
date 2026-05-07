@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Fatec - Projeto P1</title>
+    <title>VITRINE</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -23,7 +23,7 @@
 
         .navbar-brand {
             font-weight: bold;
-            color: #0d6efd !important;
+            color: #000000 !important;
         }
 
         footer {
@@ -44,7 +44,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ route('catalogo') }}">
-                <i class="bi bi-shop"></i> Minha Loja
+                <i class="bi bi-shop"></i> VITRINE
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -91,7 +91,7 @@
     <footer>
         <div class="container text-center">
             <p class="text-muted mb-0 small">
-                © 2026 - Projeto P1 Fatec Prudente - Desenvolvido por Henrique
+                © 2026 - Projeto P1 ELETIVA - Desenvolvido por Gustavo Henrique
             </p>
         </div>
     </footer>
