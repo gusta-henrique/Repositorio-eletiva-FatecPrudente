@@ -127,6 +127,21 @@
             margin-top: 50px;
         }
 
+        /* =========================
+            CAROUSEL
+        ========================= */
+
+        .carousel-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        /* =========================
+            CARDS
+        ========================= */
+
+        
     </style>
 </head>
 
@@ -211,7 +226,7 @@
     </nav>
 
     <!-- CONTEÚDO -->
-    <main class="container py-4">
+    <main>
         @yield('conteudo')
     </main>
 
