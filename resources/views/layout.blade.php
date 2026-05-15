@@ -49,6 +49,22 @@
             align-items: center;
         }
 
+        .user-icon {
+
+            font-size: 28px;
+            color: #333 !important;
+
+            transition: 0.3s ease;
+
+        }
+
+        .user-icon:hover {
+
+            color: #000 !important;
+            transform: scale(1.05);
+
+        }
+
         /* =========================
            MENU
         ========================== */
@@ -195,29 +211,137 @@
 
     </ul>
 
-    <!-- CARRINHO DIREITA -->
-    <ul class="navbar-nav ms-auto">
+    <!-- MENU DIREITA -->
+<ul class="navbar-nav ms-auto align-items-center">
+
+    <!-- CARRINHO -->
+    <li class="nav-item me-3">
+
+        <a class="btn cart-btn position-relative rounded-pill px-4"
+           href="{{ route('carrinho.exibir') }}">
+
+            <i class="bi bi-cart3"></i>
+
+            @if(session('carrinho') && count(session('carrinho')) > 0)
+
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ count(session('carrinho')) }}
+                </span>
+
+            @endif
+
+        </a>
+
+    </li>
+
+    <!-- USUÁRIO -->
+    <li class="nav-item dropdown">
+
+        <a class="nav-link user-icon"
+           href="#"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+
+            <i class="bi bi-person-circle"></i>
+
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4">
+
+            @guest
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="{{ route('login') }}">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="{{ route('register') }}">
+
+                        Registrar
+
+                    </a>
+
+                </li>
+
+            @endguest
+
+            @auth
+
+                <li class="dropdown-item-text fw-bold">
+
+                    {{ Auth::user()->name }}
+
+                </li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item"
+                       href="{{ route('profile.edit') }}">
+
+                        Meu Perfil
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <form method="POST"
+                          action="{{ route('logout') }}">
+
+                        @csrf
+
+                        <button type="submit"
+                                class="dropdown-item">
+
+                            Sair
+
+                        </button>
+
+                    </form>
+
+                </li>
+
+            @endauth
+
+        </ul>
+
+    </li>
+
+</ul>
+
+    @auth
+
+    @if(auth()->user()->tipo === 'admin')
 
         <li class="nav-item">
 
-            <a class="btn cart-btn position-relative rounded-pill px-4"
-               href="{{ route('carrinho.exibir') }}">
+            <a class="nav-link menu-link"
+               href="{{ route('usuarios.index') }}">
 
-                <i class="bi bi-cart3"></i> Carrinho
-
-                @if(session('carrinho') && count(session('carrinho')) > 0)
-
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ count(session('carrinho')) }}
-                    </span>
-
-                @endif
+               Usuários
 
             </a>
 
         </li>
 
-    </ul>
+    @endif
+
+@endauth
 
 </div>
 
