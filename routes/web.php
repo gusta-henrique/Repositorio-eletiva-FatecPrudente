@@ -1,24 +1,110 @@
 <?php
 
-use App\Http\Controllers\LojaController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\LojaController;
+use App\Http\Controllers\UsuarioController;
 
-// --- ÁREA DO CLIENTE ---
-// Página Inicial e Catálogo
-Route::get('/', [ProdutoController::class, 'catalogo'])->name('home');
-Route::get('/catalogo', [ProdutoController::class, 'catalogo'])->name('catalogo');
+/*
+|--------------------------------------------------------------------------
+| ÁREA PÚBLICA
+|--------------------------------------------------------------------------
+*/
 
-// Carrinho de Compras
-Route::get('/carrinho', [ProdutoController::class, 'exibirCarrinho'])->name('carrinho.exibir');
-Route::post('/carrinho/adicionar/{id}', [ProdutoController::class, 'adicionarCarrinho'])->name('carrinho.adicionar');
-Route::post('/carrinho/atualizar/{id}', [ProdutoController::class, 'atualizarCarrinho'])->name('carrinho.update');
-Route::post('/carrinho/limpar', [ProdutoController::class, 'limparCarrinho'])->name('carrinho.limpar');
+// Página inicial
+Route::get('/', function () {
+
+    return redirect('/catalogo');
+
+});
+
+// Catálogo
+Route::get('/catalogo', [ProdutoController::class, 'catalogo'])
+    ->name('catalogo');
 
 
-// --- ÁREA ADMINISTRATIVA ---
-// Gerenciar Produtos (É aqui que você cadastra os itens da Fatec!)
-Route::resource('produtos', ProdutoController::class);
+/*
+|--------------------------------------------------------------------------
+| CARRINHO
+|--------------------------------------------------------------------------
+*/
 
-// Gerenciar Dados da Loja (Opcional, se você tiver uma tabela de lojas)
-Route::resource('lojas', LojaController::class);
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/carrinho', [ProdutoController::class, 'exibirCarrinho'])
+        ->name('carrinho.exibir');
+
+    Route::post('/carrinho/adicionar/{id}', [ProdutoController::class, 'adicionarCarrinho'])
+        ->name('carrinho.adicionar');
+
+    Route::post('/carrinho/atualizar/{id}', [ProdutoController::class, 'atualizarCarrinho'])
+        ->name('carrinho.update');
+
+    Route::post('/carrinho/limpar', [ProdutoController::class, 'limparCarrinho'])
+        ->name('carrinho.limpar');
+
+});
+
+
+// /*
+// |--------------------------------------------------------------------------
+// | DASHBOARD
+// |--------------------------------------------------------------------------
+// */
+
+// Route::get('/dashboard', function () {
+
+//     return view('dashboard');
+
+// })->middleware(['auth'])->name('dashboard');
+
+
+/*
+|--------------------------------------------------------------------------
+| PERFIL
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| ÁREA ADMINISTRATIVA
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    // CRUD Usuários
+    Route::resource('usuarios', UsuarioController::class);
+
+    // CRUD Produtos
+    Route::resource('produtos', ProdutoController::class);
+
+    // CRUD Lojas
+    Route::resource('lojas', LojaController::class);
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| AUTH BREEZE
+|--------------------------------------------------------------------------
+*/
+
+require __DIR__.'/auth.php';
