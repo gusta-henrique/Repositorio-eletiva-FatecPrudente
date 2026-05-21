@@ -16,7 +16,7 @@ use App\Http\Controllers\UsuarioController;
 // Página inicial
 Route::get('/', function () {
 
-    return redirect('/login');
+    return redirect('/catalogo');
 
 });
 
@@ -48,17 +48,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD
-|--------------------------------------------------------------------------
-*/
+// /*
+// |--------------------------------------------------------------------------
+// | DASHBOARD
+// |--------------------------------------------------------------------------
+// */
 
-Route::get('/dashboard', function () {
+// Route::get('/dashboard', function () {
 
-    return view('dashboard');
+//     return view('dashboard');
 
-})->middleware(['auth'])->name('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 
 /*
