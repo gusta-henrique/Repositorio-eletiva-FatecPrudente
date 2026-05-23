@@ -81,4 +81,11 @@ class LojaController extends Controller
 
         return redirect()->route('lojas.index')->with('sucesso', 'Loja excluída com sucesso!');
     }
+
+    public function linktree()
+    {
+        $lojas = Loja::all();
+
+        return view('loja.linktree', compact('loja'));
+    }
 }

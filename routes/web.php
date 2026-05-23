@@ -48,24 +48,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// /*
-// |--------------------------------------------------------------------------
-// | DASHBOARD
-// |--------------------------------------------------------------------------
-// */
-
-// Route::get('/dashboard', function () {
-
-//     return view('dashboard');
-
-// })->middleware(['auth'])->name('dashboard');
-
-
 /*
 |--------------------------------------------------------------------------
-| PERFIL
+| linktree
 |--------------------------------------------------------------------------
 */
+
+Route::get('/finalizar-compra', [LojaController::class, 'linktree'])
+    ->name('finalizar.compra');
+
+
 
 Route::middleware('auth')->group(function () {
 

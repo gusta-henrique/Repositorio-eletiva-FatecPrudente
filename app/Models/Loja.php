@@ -12,9 +12,11 @@ class Loja extends Model
     protected $table = 'lojas';
 
     protected $fillable = [
-        'nome', 
-        'cnpj', 
-        'endereco', 
-        'telefone'
+        'nome',
+        'cnpj',
+        'endereco',
+        'telefone',
+        'cidade',
+        'whatsapp'
     ];
 }

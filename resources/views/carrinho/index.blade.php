@@ -91,9 +91,7 @@
                     <div class="col-md-6 text-md-end">
                         <h5 class="text-muted mb-1">Total do Pedido:</h5>
                         <h2 class="text-success fw-bold mb-3">R$ {{ number_format($total, 2, ',', '.') }}</h2>
-                        <button class="btn btn-success btn-lg px-5 rounded-pill shadow-sm">
-                            <i class="bi bi-check2-circle"></i> Finalizar Compra
-                        </button>
+                        <a href="{{ route('finalizar.compra') }}"class="btn btn-success">Finalizar Compra</a>
                     </div>
                 </div>
             </div>
